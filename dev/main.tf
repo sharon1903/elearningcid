@@ -5,7 +5,7 @@ provider "aws" {
 
 #create vpc
 module "vpc" {
-  source              = "../Modules/vpc"
+  source              = "../modules/vpc"
   vpc-cidr-block      = var.vpc-cidr-block
   pubsub1-cidr-block  = var.pubsub1-cidr-block
   pubsub2-cidr-block  = var.pubsub2-cidr-block
@@ -16,7 +16,7 @@ module "vpc" {
 
 
 module "ecs" {
-  source                    = "../Modules/ecs"
+  source                    = "../modules/ecs"
   vpc_id                    = module.vpc.vpc_id
   pub-sub1                  = module.vpc.pub-sub1
   pub-sub2                  = module.vpc.pub-sub2
@@ -35,7 +35,7 @@ module "ecs" {
 
 
 module "route53" {
-  source       = "../Modules/route53"
+  source       = "../modules/route53"
   domain_name  = var.domain_name
   alb-hostname = module.ecs.alb-hostname
   alb-zone_id  = module.ecs.alb-zone_id
@@ -43,7 +43,7 @@ module "route53" {
 }
 
 module "acm" {
-  source              = "../Modules/acm"
+  source              = "../modules/acm"
   domain_name         = var.domain_name
   aws_route53_zone_id = module.route53.aws_route53_zone_id
 
@@ -51,7 +51,7 @@ module "acm" {
 
 
 module "postgresRDS" {
-  source           = "../Modules/postgresRDS"
+  source           = "../modules/postgresRDS"
   priv-sub1-id     = module.vpc.priv-sub1
   priv-sub2-id     = module.vpc.priv-sub2
   db_user          = var.db_user
