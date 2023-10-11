@@ -252,7 +252,7 @@ resource "aws_ecs_task_definition" "e-learning-td" {
       name      = "e-learning-web"
       cpu       = 10
       memory    = 256
-      image     = "sharon1903/e-learning-waso:v1"
+      image     = "sharon1903/e-learning-waso:v2"
       essential = true
       portMappings = [
         {
